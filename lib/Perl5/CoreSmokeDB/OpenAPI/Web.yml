@@ -1,0 +1,614 @@
+openapi: 3.0.0
+info:
+  title: Perl5::CoreSmokeDB::API::Web - openapi 3.0
+  description: |-
+    This is the API for the [Perl5-CoreSmokeDB-Web](https://perl5-dev.test-smoke.org)
+      Vue.js application.
+  contact:
+    email: abeltje@test-smoke.org
+  license:
+    name: Artistic License 2.0
+    url: https://www.perlfoundation.org/artistic-license-20.html
+  version: "1.00"
+servers:
+  - url: http://localhost:5050
+  - url: https://perl5-dev.test-smoke.org
+tags:
+  -
+    name: misc
+    description: Nothing todo with the smoke reports
+  -
+    name: report
+    description: Single smoke report
+  -
+    name: reportlist
+    description: List of smoke report
+  -
+    name: search
+    description: Data to do with searching
+  -
+    name: system
+    description: Information about the service
+paths:
+  /system/status:
+    get:
+      tags:
+        - system
+      summary: Current service status
+      description: Get the current status of the Service
+      responses:
+        '200':
+          description: Status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusRecord'
+        '400':
+          description: Not a valid request
+  /api/version:
+    get:
+      tags:
+        - misc
+      summary: Get some versions
+      description: app_version, db_version, schema_version
+      operationId: rpc_version
+      responses:
+        '200':
+          description: we have versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/version'
+        '400':
+          description: Not a valid request
+  /api/latest:
+    get:
+      tags:
+        - reportlist
+      summary: List of latest smoke reports
+      description: List of latest smoke reports per host
+      operationId: rpc_latest
+      responses:
+        '200':
+          description: A object with information of the smoke report list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reportList'
+        '400':
+          description: Not a valid request
+  "/api/full_report_data/{reportId}":
+    get:
+      tags:
+        - report
+      summary: Get the full expanded smoke report
+      description: Get the full expanded smoke report for :id
+      operationId: rpc_full_report_data
+      parameters:
+        -
+          name: reportId
+          in: path
+          description: the id of the report
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: We have a report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fullReport'
+        '400':
+          description: Not a valid request
+  /api/searchparameters:
+    get:
+      tags:
+        - search
+      summary: Get the values to fill the search form
+      description: Get the values for the search form from the database
+      operationId: rpc_get_search_parameters
+      responses:
+        '200':
+          description: We have data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchFormValues'
+        '400':
+          description: Not a valid request
+  /api/searchresults:
+    get:
+      tags:
+        - search
+        - reportlist
+      summary: Do an actual search
+      description: Get the results for the given search form values
+      operationId: rpc_get_search_results
+      parameters:
+        -
+          name: selected_arch
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_osnm
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_osvs
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_host
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_comp
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_cver
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: selected_perl
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "latest"
+        -
+          name: selected_branch
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        -
+          name: andnotsel_arch
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: andnotsel_osnm
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: andnotsel_osvs
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: andnotsel_host
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: andnotsel_comp
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: andnotsel_cver
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+             - "0"
+             - "1"
+        -
+          name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            default: 1
+        -
+          name: reports_per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 25
+      responses:
+        '200':
+          description: We have results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reportList'
+        '400':
+          description: Not a valid request
+components:
+  schemas:
+    statusRecord:
+      type: object
+      properties:
+        dancer2:
+          type: string
+          example: v1.3513
+        rpc_plugin:
+          type: string
+          example: v1.05
+        active_since:
+          type: string
+          format: date-time
+          example: 2022-09-25T20:19:29+02:00
+        app_name:
+          type: string
+          example: Perl5::CoreSmokeDB
+        hostname:
+          type: string
+          example: idefix
+        running_pid:
+          type: integer
+          format: int64
+          example: 74020
+    version:
+      type: object
+      properties:
+        version:
+          type: string
+          description: backend app version
+          example: 1.00
+        db_version:
+          type: string
+          description: (schema)version stored in the database
+          example: 3
+        schema_version:
+          type: string
+          description: schema version stored in the database handler
+          example: 3
+    shortReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 42
+        architecture:
+          type: string
+          example: x86_64
+        cpu_count:
+          type: string
+          example: 2[8 cores]
+        cpu_description:
+          type: string
+          example: "AMD Ryzen 7 5700G with Radeon Graphics (3792 MHz)"
+        git_describe:
+          type: string
+          example: v5.37.2-535-g5e0c3e4a3b
+        git_id:
+          type: string
+          example: "58b390f21b8cbcf54ebe4dfb3786c00da473edd5"
+        perl_id:
+          type: string
+          example: "5.31.10"
+        plevel:
+          type: string
+          example: "5.037002zzz535"
+        hostname:
+          type: string
+          example: lx09
+        osname:
+          type: string
+          example: Linux
+        osversion:
+          type: string
+          example: "5.15.0-48-generic [Ubuntu 22.04.1 LTS (jammy)]"
+        smoke_branch:
+          type: string
+          example: blead
+        smoke_date:
+          type: string
+          format: date-time
+          example: 2022-09-16T23:25:02+02:00
+        summary:
+          type: string
+          example: PASS
+        username:
+          type: string
+          example: smoker
+    reportList:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/shortReport'
+        report_count:
+          type: integer
+          format: int64
+          example: 1
+        latest_plevel:
+          type: string
+          example: "5.037002zzz535"
+        rpp:
+          type: integer
+          format: int64
+          example: 25
+        page:
+          type: integer
+          format: int64
+          example: 2
+    testFailure:
+      type: object
+      properties:
+        failure_id:
+          type: integer
+          format: int64
+          example: 6
+        result_id:
+          type: integer
+          format: int64
+          example: 968
+    testResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 968
+        config_id:
+          type: integer
+          format: int64
+          example: 356
+        io_env:
+          type: string
+          example: stdio
+        locale:
+          type: string
+          example: en_US.UTF-8
+        summay:
+          type: string
+          example: F
+        statistics:
+          type: string
+          example: "u=4.42  s=1.73  cu=302.89  cs=31.80  scripts=2494  tests=1174882"
+        stat_cpu_time:
+          type: string
+          example: "333.31"
+        stat_tests:
+          type: integer
+          format: int64
+          example: 1174882
+        failures:
+          type: array
+          items:
+            $ref: '#/components/schemas/testFailure'
+    cCompiler:
+      type: object
+      properties:
+        cc:
+          type: string
+          example: cc
+        ccversion:
+          type: string
+          example: "11.2.0"
+        index:
+          type: integer
+          format: int64
+          example: 1
+        key:
+          type: string
+          example: cc##11.2.0
+    testConfig:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 968
+        arguments:
+          type: string
+          example: "-Duseithreads"
+        cc:
+          type: string
+          example: cc
+        ccversion:
+          type: string
+          example: "11.2.0"
+        debugging:
+          type: string
+          enum:
+            - D
+            - N
+        duration:
+          type: integer
+          format: int64
+          example: 1850
+        report_id:
+          type: integer
+          format: int64
+          example: 165
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/testResult'
+    fullReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 42
+        architecture:
+          type: string
+          example: x86_64
+        cpu_count:
+          type: string
+          example: 2[8 cores]
+        cpu_description:
+          type: string
+          example: "AMD Ryzen 7 5700G with Radeon Graphics (3792 MHz)"
+        git_describe:
+          type: string
+          example: v5.37.2-535-g5e0c3e4a3b
+        git_id:
+          type: string
+          example: "58b390f21b8cbcf54ebe4dfb3786c00da473edd5"
+        perl_id:
+          type: string
+          example: "5.31.10"
+        plevel:
+          type: string
+          example: "5.037002zzz535"
+        hostname:
+          type: string
+          example: lx09
+        osname:
+          type: string
+          example: Linux
+        osversion:
+          type: string
+          example: "5.15.0-48-generic [Ubuntu 22.04.1 LTS (jammy)]"
+        smoke_branch:
+          type: string
+          example: blead
+        smoke_date:
+          type: string
+          format: date-time
+          example: 2022-09-16T23:25:02+02:00
+        summary:
+          type: string
+          example: PASS
+        username:
+          type: string
+          example: smoker
+        applied_patches:
+          type: string
+          example: SMOKE5e0c3e4a3b85ccc05e1127d901a87d55a48e5b98
+        duration:
+          type: integer
+          format: int64
+          example: 3833
+        duration_in_hhmm:
+          type: string
+          example: "1 hour 3 minutes"
+        average_in_hhmm:
+          type: string
+          example: "31 minutes 56 seconds"
+        harness3opts:
+          type: string
+          example: null
+        harness_only:
+          type: string
+          example: "0"
+        lc_all:
+          type: string
+          example: null
+        log_file:
+          type: string
+          example: ""
+        out_file:
+          type: string
+          example: ""
+        compiler_messages:
+          type: string
+          example: ""
+        c_compilers:
+          type: array
+          items:
+            $ref: '#/components/schemas/cCompiler'
+        config_count:
+          type: integer
+          format: int64
+          example: 2
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/testConfig'
+    archHostOs:
+      type: object
+      properties:
+        architecture:
+          type: string
+          example: amd64
+        hostname:
+          type: string
+          example: idefix
+        os:
+          type: string
+          example: Linux
+        osversion:
+          type: string
+          example: "5.15.0-48-generic [Ubuntu 22.04.1 LTS (jammy)]"
+    compilerVersion:
+      type: object
+      properties:
+        comp:
+          type: string
+          example: cc
+        compversion:
+          type: string
+          example: "11.2.0"
+    perlVersion:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+    searchFormValues:
+      type: object
+      properties:
+        sel_arch_os_ver:
+          type: array
+          items:
+            $ref: '#/components/schemas/archHostOs'
+        sel_comp_ver:
+          type: array
+          items:
+            $ref: '#/components/schemas/compilerVersion'
+        branches:
+         type: array
+         items:
+           type: string
+           example: blead
+        perl_versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/perlVersion'

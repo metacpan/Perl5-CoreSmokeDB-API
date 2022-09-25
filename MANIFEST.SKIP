@@ -1,0 +1,10 @@
+\.git(ignore|attributes|/)
+pm_to_blib/
+local/
+coverage_db/
+\..+\.swp$
+logs/
+Makefile$
+MYMETA.*
+coresmokedb\.sqlite
+lib/Perl5SmokeDB

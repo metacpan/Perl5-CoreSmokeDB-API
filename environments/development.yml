@@ -1,0 +1,24 @@
+---
+log: debug
+logger: console
+
+auto_reload: 1
+
+# cors_allow_origin: http://localhost:5173
+cors_allow_origin: "*"
+
+plugins:
+  DBIC:
+    production: &prd
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: 'dbi:Pg:host=perl5smokedb;dbname=coresmokedb'
+      options:
+        RaiseError: 1
+        PrintError: 1
+    development: &dev
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: 'dbi:Pg:host=fidodbmaster;dbname=coresmokedb'
+      options:
+        RaiseError: 1
+        PrintError: 1
+    default: *dev

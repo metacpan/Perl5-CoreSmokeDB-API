@@ -1,0 +1,42 @@
+---
+encoding: utf8
+
+openapidir: lib/Perl5/CoreSmokeDB/OpenAPI
+
+plugins:
+  'RPC::JSONRPC':
+    '/system':
+      'Perl5::CoreSmokeDB::API::System':
+        methods: rpc_list_methods
+        ping:    rpc_ping
+        status:  rpc_status
+        version: rpc_version
+    '/api':
+      'Perl5::CoreSmokeDB::API::Web':
+        version:               rpc_version
+        latest:                rpc_latest
+        full_report_data:      rpc_full_report_data
+        outfile:               rpc_outfile
+        logfile:               rpc_logfile
+        matrix:                rpc_failures_matrix
+        submatrix:             rpc_failures_submatrix
+        searchparameters:      rpc_get_search_parameters
+        searchresults:         rpc_get_search_results
+  'RPC::RESTISH':
+    '/system':
+      'Perl5::CoreSmokeDB::API::System':
+        GET@methods: rpc_list_methods
+        GET@ping:    rpc_ping
+        GET@status:  rpc_status
+        GET@version: rpc_version
+    '/api':
+      'Perl5::CoreSmokeDB::API::Web':
+        GET@version:               rpc_version
+        GET@latest:                rpc_latest
+        GET@full_report_data/:rid: rpc_full_report_data
+        GET@outfle/:rid:           rpc_outfile
+        GET@logfile/:rid:          rpc_logfile
+        GET@matrix:                rpc_failures_matrix
+        GET@submatrix:             rpc_failures_submatrix
+        GET@searchparameters:      rpc_get_search_parameters
+        GET@searchresults:         rpc_get_search_results

@@ -1,0 +1,18 @@
+---
+
+logger: null
+log: error
+
+plugins:
+  DBIC:
+    init: &init
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: dbi:SQLite:dbname=t/p5sdb.sqlite
+      options:
+        ignore_version: 1
+    test: &test
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: dbi:SQLite:dbname=t/p5sdb.sqlite
+      options:
+        ignore_version: 1
+    default: *test

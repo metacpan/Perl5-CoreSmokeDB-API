@@ -1,0 +1,15 @@
+---
+log: debug
+logger: console
+
+cors_allow_origin: "*"
+
+plugins:
+  DBIC:
+    try_out: &try
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: 'dbi:SQLite:dbname=t/coresmokedb.sqlite'
+      options:
+        RaiseError: 1
+        PrintError: 1
+    default: *try

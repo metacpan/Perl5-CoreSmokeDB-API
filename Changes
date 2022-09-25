@@ -1,0 +1,10 @@
+Changes on 2022-10-04 for repository at:
+  Fetch URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
+  Push  URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
+
+Enjoy!
+
+0.00_00 2022-09-25T18:15:04+02:00 (05d6316 => Abe Timmerman)
+ - (Abe Timmerman, Sun, 25 Sep 2022 18:15:04 +0200) First commit
+ -     This API is a port of the "old" CoreSmokeDB web-app.
+ -     This service will only provide the API for the new VueJS frontend.
