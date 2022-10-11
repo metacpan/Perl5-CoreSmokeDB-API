@@ -1,10 +1,22 @@
-Changes on 2022-10-04 for repository at:
+Changes on 2022-10-11 for repository at:
   Fetch URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
   Push  URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
 
 Enjoy!
 
-0.00_00 2022-09-25T18:15:04+02:00 (05d6316 => Abe Timmerman)
+1.00_01 2022-10-11T14:15:04+02:00 (f48425e => Abe Timmerman)
+ - (Abe Timmerman, Tue, 11 Oct 2022 14:15:04 +0200) Autocommit for
+   distribution Perl5::CoreSmokeDB 1.00_01 (test)
+
+0.00_00 2022-09-25T18:15:04+02:00 (5b0be22 => Abe Timmerman)
  - (Abe Timmerman, Sun, 25 Sep 2022 18:15:04 +0200) First commit
  -     This API is a port of the "old" CoreSmokeDB web-app.
  -     This service will only provide the API for the new VueJS frontend.
+
+ - (Abe Timmerman, Tue, 11 Oct 2022 10:27:05 +0200) Make it a buildable
+   distribution
+
+ - (Abe Timmerman, Tue, 11 Oct 2022 13:42:32 +0200) Only the CoreSmokeDB
+   API for now
+
+ - (Abe Timmerman, Tue, 11 Oct 2022 14:02:31 +0200) We need Starman to run
