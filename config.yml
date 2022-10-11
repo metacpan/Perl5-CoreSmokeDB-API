@@ -11,6 +11,11 @@ plugins:
         ping:    rpc_ping
         status:  rpc_status
         version: rpc_version
+    '/query':
+      'Perl5SmokeDB::API::Query':
+        pverlist: rpc_get_pverlist
+        list:     rpc_get_attribute_list
+        report:   rpc_get_by_id
     '/api':
       'Perl5::CoreSmokeDB::API::Web':
         version:               rpc_version
@@ -25,10 +30,21 @@ plugins:
   'RPC::RESTISH':
     '/system':
       'Perl5::CoreSmokeDB::API::System':
-        GET@methods: rpc_list_methods
-        GET@ping:    rpc_ping
-        GET@status:  rpc_status
-        GET@version: rpc_version
+        GET@methods:         rpc_list_methods
+        GET@methods/:plugin: rpc_list_methods
+        GET@ping:            rpc_ping
+        GET@status:          rpc_status
+        GET@version:         rpc_version
+    '/query':
+      'Perl5SmokeDB::API::Query':
+        GET@perl_version_list:           rpc_get_pverlist
+        GET@perl_version_list/:pversion: rpc_get_pverlist
+        GET@list/:attribute:             rpc_get_attribute_list
+        GET@report/:rid:                 rpc_get_by_id
+    '/smoquel':
+      'Perl5SmokeDB::API::Smoquel':
+        GET@:       doquery
+        GET@:smql:  doquery
     '/api':
       'Perl5::CoreSmokeDB::API::Web':
         GET@version:               rpc_version

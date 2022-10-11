@@ -1,5 +1,5 @@
 requires 'Dancer2'                       => '0.400000';
-requires 'Dancer2::Plugin::RPC'          => '2.01_02';
+requires 'Dancer2::Plugin::RPC'          => '2.02';
 requires 'Dancer2::Plugin::RPC::RESTISH' => '2.01_01';
 requires 'Date::Parse'                   => '2.30';
 requires 'DateTime::Format::Pg'          => '0.16013';

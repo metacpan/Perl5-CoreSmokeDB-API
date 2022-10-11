@@ -4,6 +4,7 @@ pipeline {
     agent { label 'perl5smokedb' }
     environment {
         PGHOST='fidodbmaster'
+	DANCER_ENVIRONMENT='test'
     }
     stages {
         stage('Build_and_Test') {
@@ -60,11 +61,30 @@ chmod +x deploy/local/bin/*
                 }
             }
             steps {
-                sh 'chmod +x deploy/local/bin/*'
                 sshagent(['ssh-deploy']) {
                     sh '''
-/usr/bin/deploy -av deploy/ perl5smokedb.fritz.box:/var/lib/www/Perl5-CoreSmokeDB-API.preview/
-/usr/bin/restart-remote perl5smokedb.fritz.box perl5smokedb-preview
+/usr/bin/deploy -av deploy/ perl5smokedb.fritz.box:/var/lib/www/CoreSmokeDBAPI.preview/
+/usr/bin/restart-remote perl5smokedb.fritz.box perl5smokedbapi-preview
+                    '''
+                }
+            }
+        }
+        stage('DeployProduction') {
+            when {
+                // branch 'main'
+                expression {
+                    echo "BRANCH_NAME is ${scm.branches[0].name}"
+                    return scm.branches[0].name == "main"
+                }
+            }
+            steps {
+                script {
+                    def usrinput = input message: "Deploy or Abort ?", ok: "Deploy!"
+                }
+                sshagent(['ssh-deploy']) {
+                    sh '''
+/usr/bin/deploy -av deploy/ perl5smokedb.fritz.box:/var/lib/www/CoreSmokeDBAPI/
+/usr/bin/restart-remote perl5smokedb.fritz.box perl5smokedbapi
                     '''
                 }
             }

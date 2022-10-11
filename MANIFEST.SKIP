@@ -1,5 +1,6 @@
 \.git(ignore|attributes|/)
-pm_to_blib/
+blib/
+pm_to_blib
 local/
 coverage_db/
 \..+\.swp$

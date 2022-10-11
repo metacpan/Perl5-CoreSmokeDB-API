@@ -9,7 +9,7 @@
 Makefile
 Makefile.bak
 dbi.trace
-coresmokedb.sqlite
+/coresmokedb.sqlite
 
 # carton
 cpanfile.snapshot

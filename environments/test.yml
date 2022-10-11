@@ -7,12 +7,15 @@ plugins:
   DBIC:
     init: &init
       schema_class: Perl5::CoreSmokeDB::Schema
-      dsn: dbi:SQLite:dbname=t/p5sdb.sqlite
+      dsn: dbi:SQLite:dbname=p5sdb.sqlite
       options:
+        RaiseError: 1
+        PrintError: 1
         ignore_version: 1
     test: &test
       schema_class: Perl5::CoreSmokeDB::Schema
-      dsn: dbi:SQLite:dbname=t/p5sdb.sqlite
+      dsn: dbi:SQLite:dbname=t/coresmokedb.sqlite
       options:
-        ignore_version: 1
+        RaiseError: 1
+        PrintError: 1
     default: *test

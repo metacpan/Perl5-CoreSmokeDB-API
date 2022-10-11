@@ -23,6 +23,7 @@ META.json
 META.yml
 README.md
 t/000-basic.t
+t/010-system.t
 t/999-cleanup.t
 t/Test/abeltje.pm
 t/coresmokedb.sqlite
