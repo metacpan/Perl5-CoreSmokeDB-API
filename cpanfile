@@ -11,6 +11,6 @@ requires 'DBD::SQLite'                   => '0';
 requires 'DBIx::Class'                   => '0';
 requires 'Dancer2::Plugin::DBIC'         => '0';
 requires 'Moo'                           => '2';
-requires 'Perl5::CoreSmokeDB::Schema'    => '1.07';
+requires 'Perl5::CoreSmokeDB::Schema'    => '1.08';
 requires 'namespace::autoclean'          => '0';
 requires 'Starman'                       => '0.4015';
