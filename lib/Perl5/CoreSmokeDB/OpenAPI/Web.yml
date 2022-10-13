@@ -11,8 +11,7 @@ info:
     url: https://www.perlfoundation.org/artistic-license-20.html
   version: "1.00"
 servers:
-  - url: http://localhost:5050
-  - url: https://perl5-dev.test-smoke.org
+  - url: https://perl5-preview.test-smoke.org
 tags:
   -
     name: misc
@@ -260,6 +259,92 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/reportList'
+        '400':
+          description: Not a valid request
+  "/api/reports_from_id/{reportId}":
+    get:
+      tags:
+        - report
+      summary: Get report-ids from reportId
+      description: Get a list of ids, starting with reportId
+      operationId: rpc_reports_from_id
+      parameters:
+        -
+          name: reportId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        -
+          name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: We have a list (even empty)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+        '400':
+          description: Not a valid request
+  "/api/reports_from_date/{epoch}":
+    get:
+      tags:
+        - report
+      summary: Get report-ids from epoch
+      description: Get a list of ids, starting with epoch
+      operationId: rpc_reports_from_epoch
+      parameters:
+        -
+          name: epoch
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: We have a list (even empty)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+        '400':
+          description: Not a valid request
+  "/api/report_data/{reportId}":
+    get:
+      tags:
+        - report
+      summary: Get the full expanded smoke report
+      description: Get the full expanded smoke report for :id
+      operationId: rpc_report_data
+      parameters:
+        -
+          name: reportId
+          in: path
+          description: the id of the report
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: We have a report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flatReport'
         '400':
           description: Not a valid request
 components:
@@ -553,6 +638,89 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/cCompiler'
+        config_count:
+          type: integer
+          format: int64
+          example: 2
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/testConfig'
+    flatReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 42
+        architecture:
+          type: string
+          example: x86_64
+        cpu_count:
+          type: string
+          example: 2[8 cores]
+        cpu_description:
+          type: string
+          example: "AMD Ryzen 7 5700G with Radeon Graphics (3792 MHz)"
+        git_describe:
+          type: string
+          example: v5.37.2-535-g5e0c3e4a3b
+        git_id:
+          type: string
+          example: "58b390f21b8cbcf54ebe4dfb3786c00da473edd5"
+        perl_id:
+          type: string
+          example: "5.31.10"
+        plevel:
+          type: string
+          example: "5.037002zzz535"
+        hostname:
+          type: string
+          example: lx09
+        osname:
+          type: string
+          example: Linux
+        osversion:
+          type: string
+          example: "5.15.0-48-generic [Ubuntu 22.04.1 LTS (jammy)]"
+        smoke_branch:
+          type: string
+          example: blead
+        smoke_date:
+          type: string
+          format: date-time
+          example: 2022-09-16T23:25:02+02:00
+        summary:
+          type: string
+          example: PASS
+        username:
+          type: string
+          example: smoker
+        applied_patches:
+          type: string
+          example: SMOKE5e0c3e4a3b85ccc05e1127d901a87d55a48e5b98
+        duration:
+          type: integer
+          format: int64
+          example: 3833
+        harness3opts:
+          type: string
+          example: null
+        harness_only:
+          type: string
+          example: "0"
+        lc_all:
+          type: string
+          example: null
+        log_file:
+          type: string
+          example: ""
+        out_file:
+          type: string
+          example: ""
+        compiler_messages:
+          type: string
+          example: ""
         config_count:
           type: integer
           format: int64

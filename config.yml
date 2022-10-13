@@ -27,6 +27,10 @@ plugins:
         submatrix:             rpc_failures_submatrix
         searchparameters:      rpc_get_search_parameters
         searchresults:         rpc_get_search_results
+# We also want the old API functions
+        reports_from_id:       rpc_reports_from_id
+        reports_from_date:     rpc_reports_from_epoch
+        report_data:           rpc_report_data
   'RPC::RESTISH':
     '/system':
       'Perl5::CoreSmokeDB::API::System':
@@ -56,3 +60,7 @@ plugins:
         GET@submatrix:             rpc_failures_submatrix
         GET@searchparameters:      rpc_get_search_parameters
         GET@searchresults:         rpc_get_search_results
+# We also need the old API functions
+        GET@reports_from_id/:rid:     rpc_reports_from_id
+        GET@reports_from_date/:epoch: rpc_reports_from_epoch
+        GET@report_data/:rid:         rpc_report_data

@@ -930,6 +930,87 @@ sub post_smoke_config {
     return $sc_data;
 }
 
+=head2 $db->get_reports_from_id(@paramaters)
+
+=head3 Parameters
+
+Positional:
+
+=over
+
+=item B<$rid> [Required]
+
+=item B<$limit> [Required]
+
+=back
+
+=head3 Response
+
+Returns a list of Report-records with only the C<id> field.
+
+=cut
+
+sub get_reports_from_id {
+    my $self = shift;
+    $self->validate_positional_parameters(
+        [
+            $self->parameter(rid => $self->Required, { store => \my $rid }),
+            $self->parameter(limit => $self->Required, { store => \my $limit }),
+        ],
+        [ @_ ]
+    );
+
+    my $reports = $self->schema->resultset('Report')->search_rs(
+        { id => { '>=' => $rid } },
+        {
+            columns  => ['id'],
+            order_by => { -asc => 'id' },
+            rows     => $limit,
+        }
+    );
+
+    return [ $reports->all ];
+}
+
+=head2 $db->get_reports_from_epoch(@parameters)
+
+=head3 Parameters
+
+Positional:
+
+=over
+
+=item 1. B<$epoch> [Required]
+
+A timestamp/epoch.
+
+=back
+
+=head3 Response
+
+Returns a list of Report-records with only the C<id> field.
+
+=cut
+
+sub get_reports_from_epoch {
+    my $self = shift;
+    $self->validate_positional_parameters(
+        [ $self->parameter(epoch => $self->Required, { store => \my $epoch }) ],
+        [ @_ ]
+    );
+
+    my $from_time = DateTime->from_epoch(epoch => $epoch, time_zone => 'UTC');
+    my $reports = $self->schema->resultset('Report')->search_rs(
+        { smoke_date => { '>=' => $from_time->strftime("%F %T") } },
+        {
+            columns  => ['id'],
+            order_by => { -asc => [ 'smoke_date', 'id' ] },
+        }
+    );
+
+    return [ $reports->all ];
+}
+
 sub _flatten_report {
     my ($report) = @_;
     return {

@@ -46,6 +46,8 @@ sub ValidationTemplates {
         report_data      => { type => HashRef },
         reports_per_page => { type => Int, default => 25 },
         rid              => { type => Int },
+        epoch            => { type => Int },
+        limit            => { type => Int, default => 100 },
         selected_arch    => { type => Str, default => "" },
         selected_branch  => { type => Str, default => "" },
         selected_comp    => { type => Str, default => "" },

@@ -666,6 +666,165 @@ sub rpc_post_report {
     return { id => $report->id };
 }
 
+=head2 $api->rpc_reports_from_id(\%parameters)
+
+Returns a list of report-id's, starting with the one passed.
+
+=head3 Example calls
+
+=over
+
+=item B<JSONRPC>
+
+  curl -XPOST http://p5sdb-api/api -H'Content-type: application/json' \
+    -d'{"jsonrpc":"2.0", "id":"api42", "method":"reports_from_id",
+    "params":{"rid":505042, "limit": 50}'
+
+=item B<RESTISH>
+
+  curl -XGET 'http://p5sdb-api/api/reports_from_id/505042?limit=50'
+
+=back
+
+=head3 Parameters
+
+Named, hashref:
+
+=over
+
+=item B<rid> [Required]
+
+The starting point for report-id's to return
+
+=item B<limit> [Optional]
+
+This is an optional limit, but will be set to C<100> if omitted.
+
+=back
+
+=head3 Response
+
+A list of report-id's > C<$rid>.
+
+=cut
+
+sub rpc_reports_from_id {
+    my $self = shift;
+    $self->validate_parameters(
+        {
+            $self->parameter(rid => $self->Required, { store => \my $rid }),
+            $self->parameter(limit => $self->Optional, { store => \my $limit }),
+        },
+        $_[0]
+    );
+    my $reports = $self->db_client->get_reports_from_id($rid, $limit//100);
+
+    return [ map { $_->id } @$reports ];
+}
+
+=head2 $api->rpc_reports_from_epoch(\%dparameters)
+
+Returns a list of report-id's, starting at the epoch passed.
+
+=head3 Example calls
+
+=over
+
+=item B<JSONRPC>
+
+  curl -XPOST http://p5sdb-api/api -H'Content-type: application/json' \
+    -d'{"jsonrpc":"2.0", "id":"api42", "method":"reports_from_id",
+    "params":{"epoch":1665090188}'
+
+=item B<RESTISH>
+
+  curl -XGET 'http://p5sdb-api/api/reports_from_date/1665090188'
+
+=back
+
+=head3 Parameters
+
+Named, hashref:
+
+=over
+
+=item B<epoch> [Required]
+
+The starting point for report-id's to return
+
+=back
+
+=head3 Response
+
+A list of report-id's > C<$rid>.
+
+=cut
+
+sub rpc_reports_from_epoch {
+    my $self = shift;
+    $self->validate_parameters(
+        { $self->parameter(epoch => $self->Required, { store => \my $epoch }) },
+        $_[0]
+    );
+    my $reports = $self->db_client->get_reports_from_epoch($epoch);
+
+    return [ map { $_->id } @$reports ];
+}
+
+=head2 $api->rpc_report_data(\%parameters)
+
+Returns the report as a datastructure.
+
+=head3 Example calls
+
+=over
+
+=item B<JSONRPC>
+
+  curl -XPOST http://p5sdb-api/api -H'Content-type: application/json' \
+    -d'{"jsonrpc":"2.0", "id":"api42", "method":"report_data",
+    "params":{"rid":505042}'
+
+=item B<RESTISH>
+
+  curl -XGET 'http://p5sdb-api/api/report_data/505042'
+
+=back
+
+=head3 Parameters
+
+Named, hashref:
+
+=over
+
+=item B<rid> [Required]
+
+The report-id.
+
+=back
+
+=head3 Response
+
+A struct with the report and its relations.
+
+=cut
+
+sub rpc_report_data {
+    my $self = shift;
+    $self->validate_parameters(
+        { $self->parameter(rid => $self->Required, { store => \my $report_id }) },
+        $_[0]
+    );
+
+    my $db_report = $self->db_client->get_full_report($report_id);
+
+    if (! $db_report) {
+        status(404);
+        return;
+    }
+    return $db_report->as_hashref('full');
+}
+
 use namespace::autoclean;
 1;
 
