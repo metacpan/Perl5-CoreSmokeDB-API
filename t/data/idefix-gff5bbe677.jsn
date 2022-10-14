@@ -1,0 +1,131 @@
+{
+   "skip_tests" : "",
+   "summary" : "PASS",
+   "un_position" : "bottom",
+   "log_file" : null,
+   "is56x" : 0,
+   "harness3opts" : "",
+   "harness_only" : 0,
+   "v" : 1,
+   "outfile" : "mktest.out",
+   "out_file" : null,
+   "un_file" : "/Users/abeltje/ztreet/perl5coresmoke/etc/blead.usernote",
+   "defaultenv" : 0,
+   "lfile" : "/Users/abeltje/ztreet/perl5coresmoke/etc/blead.log",
+   "jsnfile" : "mktest.jsn",
+   "skipped_tests" : [],
+   "compiler_msgs" : [],
+   "configs" : [
+      {
+         "duration" : 3800,
+         "arguments" : "",
+         "ccversion" : "Apple LLVM 13.1.6 (clang-1316.0.21.2.5)",
+         "cc" : "cc",
+         "results" : [
+            {
+               "stat_cpu_time" : 869.77,
+               "failures" : [],
+               "summary" : "O",
+               "locale" : null,
+               "statistics" : "u=12.12  s=6.69  cu=755.12  cs=95.84  scripts=2488  tests=1175044",
+               "io_env" : "stdio",
+               "stat_tests" : "1175044"
+            },
+            {
+               "statistics" : "u=7.18  s=7.16  cu=636.43  cs=81.04  scripts=2490  tests=1175032",
+               "io_env" : "perlio",
+               "stat_tests" : "1175032",
+               "failures" : [],
+               "stat_cpu_time" : 731.81,
+               "summary" : "O",
+               "locale" : null
+            },
+            {
+               "statistics" : "u=7.28  s=6.73  cu=635.80  cs=80.65  scripts=2490  tests=1175116",
+               "io_env" : "locale",
+               "stat_tests" : "1175116",
+               "stat_cpu_time" : 730.46,
+               "failures" : [],
+               "summary" : "O",
+               "locale" : "nl_NL.UTF8"
+            }
+         ],
+         "started" : "2022-07-31 03:05:08 +0200",
+         "debugging" : "N"
+      },
+      {
+         "debugging" : "D",
+         "started" : "2022-07-31 04:08:28 +0200",
+         "results" : [
+            {
+               "failures" : [],
+               "stat_cpu_time" : 930.21,
+               "locale" : null,
+               "summary" : "O",
+               "statistics" : "u=13.32  s=6.62  cu=810.71  cs=99.56  scripts=2489  tests=1175062",
+               "io_env" : "stdio",
+               "stat_tests" : "1175062"
+            },
+            {
+               "statistics" : "u=8.66  s=6.76  cu=690.13  cs=83.68  scripts=2491  tests=1175236",
+               "io_env" : "perlio",
+               "stat_tests" : "1175236",
+               "stat_cpu_time" : 789.23,
+               "failures" : [],
+               "summary" : "O",
+               "locale" : null
+            },
+            {
+               "locale" : "nl_NL.UTF8",
+               "summary" : "O",
+               "stat_cpu_time" : 795.52,
+               "failures" : [],
+               "stat_tests" : "1175055",
+               "io_env" : "locale",
+               "statistics" : "u=8.75  s=6.91  cu=696.20  cs=83.66  scripts=2491  tests=1175055"
+            }
+         ],
+         "cc" : "cc",
+         "arguments" : "",
+         "ccversion" : "Apple LLVM 13.1.6 (clang-1316.0.21.2.5)",
+         "duration" : 4100
+      }
+   ],
+   "nonfatal_msgs" : [],
+   "hostname" : "idefix",
+   "cfg" : "/Users/abeltje/ztreet/perl5coresmoke/etc/blead.buildcfg",
+   "ddir" : "/Users/abeltje/ztreet/perl5coresmoke/perl-current",
+   "locale" : "nl_NL.UTF8",
+   "manifest_msgs" : [
+      "MANIFEST did not declare '.mailmap'"
+   ],
+   "showcfg" : 0,
+   "sysinfo" : {
+      "hostname" : "idefix",
+      "smoke_version" : "1.77",
+      "git_id" : "ff5bbe677ed155d1e571d4175ba86925b353173e",
+      "cpu_description" : "MacBook Pro (0)",
+      "lang" : null,
+      "duration" : 7900,
+      "smoker_version" : "0.046",
+      "smoke_branch" : "blead",
+      "architecture" : "arm64",
+      "reporter" : "",
+      "username" : "abeltje",
+      "osname" : "darwin",
+      "smoke_revision" : "1.77",
+      "reporter_version" : "0.054",
+      "git_describe" : "v5.37.2-33-gff5bbe677e",
+      "perl_id" : "5.37.3",
+      "test_jobs" : null,
+      "cpu_count" : " [10 (8 performance and 2 efficiency) cores]",
+      "user_note" : "",
+      "osversion" : "21.6.0 (Mac OS X - macOS 12.5 (21G72))",
+      "lc_all" : null,
+      "smoke_perl" : "5.34.0",
+      "config_count" : 2,
+      "smoke_date" : "2022-07-31 03:05:08 +0200"
+   },
+   "applied_patches" : [],
+   "rptfile" : "mktest.rpt"
+}

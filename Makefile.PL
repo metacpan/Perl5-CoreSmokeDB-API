@@ -18,6 +18,7 @@ WriteMakefile(
         'Test::Simple'   => '0.88',
         'Test::Fatal'    => '0',
         'Test::Warnings' => '0',
+        'URI'            => '1.53',
     },
     PREREQ_PM => {
         'Dancer2::Plugin::RPC::RESTISH'    => '2.02',

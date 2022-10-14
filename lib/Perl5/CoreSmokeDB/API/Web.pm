@@ -623,6 +623,24 @@ sub rpc_failures_submatrix {
 
 Add the report to the database.
 
+=head3 Example calls
+
+=over
+
+=item B<JSONRPC>
+
+  curl -XPOST http://p5sdb-api/api -H'Content-type: application/json' \
+   -d"{"\""jsonrpc"\"":"\""2.0"\"","\""id"\"":"\""api42"\"","\""method"\"":"\""post_report"\"",
+   "\""params"\"":{"\""report_data"\"":$(cat ../perl-current/mktest.jsn)}}"
+
+=item B<RESTISH>
+
+  curl -XPOST -H'Content-type: application/json' \
+    'http://p5sdb-api/api/report'
+    -d"{"\""report_data"\"":$(cat ../perl-current/mktest.jsn)}"
+
+=back
+
 =head3 Parameters
 
 Named, hashref:
@@ -650,7 +668,7 @@ sub rpc_post_report {
         debug("Report was posted, returning id => ", $report->id);
     };
     if (my $error = $@) {
-        if ("$error" =~ m{duplicate key}) {
+        if ("$error" =~ m{(?:duplicate key)|(?:UNIQUE constraint failed)}) {
             debug("Report is a duplicate: ", $error);
             return {
                 error    => 'Report already posted.',
