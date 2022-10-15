@@ -2,14 +2,21 @@
 
 pipeline {
     agent { label 'perl5smokedb' }
+    parameters {
+        string(
+            name: 'buildBranch',
+            defaultValue: 'preview',
+            description: 'This is the name of the branch to build'
+        )
+    }
     environment {
         PGHOST='fidodbmaster'
-	DANCER_ENVIRONMENT='test'
+        DANCER_ENVIRONMENT='test'
     }
     stages {
         stage('Build_and_Test') {
             steps {
-                script { echo "Building and testing branch: " + scm.branches[0].name }
+                script { echo "Building and testing branch: " + params.buildBranch }
                 sh '''
 cpanm --notest -L local --installdeps .
 cpanm --notest -L local TAP::Formatter::JUnit
@@ -57,7 +64,8 @@ chmod +x deploy/local/bin/*
                 // branch 'preview'
                 expression {
                     echo "BRANCH_NAME is ${scm.branches[0].name}"
-                    return scm.branches[0].name == "preview"
+                    echo "buildBranch is ${params.buildBranch}"
+                    return params.buildBranch == "preview"
                 }
             }
             steps {
@@ -74,7 +82,8 @@ chmod +x deploy/local/bin/*
                 // branch 'main'
                 expression {
                     echo "BRANCH_NAME is ${scm.branches[0].name}"
-                    return scm.branches[0].name == "main"
+                    echo "buildBranch is ${params.buildBranch}"
+                    return params.builBranch == "main"
                 }
             }
             steps {
