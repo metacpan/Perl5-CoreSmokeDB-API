@@ -1,12 +1,27 @@
-Changes on 2022-10-13 for repository at:
+Changes on 2022-10-15 for repository at:
   Fetch URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
   Push  URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
 
 Enjoy!
 
-1.00_03 2022-10-13T16:41:24+02:00 (b6a7a28 => Abe Timmerman)
+1.01 2022-10-15T14:45:33+02:00 (adda164 => Abe Timmerman)
+ - (Abe Timmerman, Sat, 15 Oct 2022 14:45:33 +0200) Autocommit for
+   distribution Perl5::CoreSmokeDB 1.01 (minor)
+
+1.00_03 2022-10-13T16:41:24+02:00 (c97b8ac => Abe Timmerman)
  - (Abe Timmerman, Thu, 13 Oct 2022 16:41:24 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.00_03 (test)
+
+ - (Abe Timmerman, Fri, 14 Oct 2022 15:29:55 +0200) Add post_report to the
+   api
+ -     Neither the jsonrpc nor the restish interface had a configuration
+   for
+ -     the post_report functionality, with new tests.
+
+ - (Abe Timmerman, Fri, 14 Oct 2022 18:08:43 +0200) Add examples for use.
+
+ - (Abe Timmerman, Sat, 15 Oct 2022 14:42:49 +0200) Add new tests for the
+   posting of reports
 
 1.00_02 2022-10-12T13:25:30+02:00 (7a78cc4 => Abe Timmerman)
  - (Abe Timmerman, Wed, 12 Oct 2022 13:25:30 +0200) Autocommit for

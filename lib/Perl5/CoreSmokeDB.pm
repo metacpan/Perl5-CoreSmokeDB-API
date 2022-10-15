@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use lib 'lib';
 
-our $VERSION = '1.00_03';
+our $VERSION = '1.01';
 
 use Dancer2;
 use Dancer2::Plugin::DBIC;
