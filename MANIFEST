@@ -25,10 +25,12 @@ README.md
 t/000-basic.t
 t/010-system.t
 t/100-backward-compat-api.t
+t/150-post-report.t
 t/999-cleanup.t
 t/Test/abeltje.pm
 t/coresmokedb.sqlite
-t/report1.pl
+t/data/idefix-gff5bbe677.jsn
+t/data/report1.pl
 xt/00-manifest.t
 xt/01-compile.t
 xt/02-pod_syntax.t

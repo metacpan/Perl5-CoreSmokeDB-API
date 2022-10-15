@@ -83,8 +83,9 @@ my $tester = Plack::Test->create($app);
     );
     is($response->code, 200, "Request OK");
     my $report = from_json($response->content);
-    my $expected = do 't/report1.pl';
-    is_deeply($report, $expected, "Report as expected (t/report1.pl)")
+    my $file_name = catfile('t', 'data', 'report1.pl');
+    my $expected = do $file_name;
+    is_deeply($report, $expected, "Report as expected (t/data/report1.pl)")
         or diag(explain($report));
 
     $response = $tester->request(
