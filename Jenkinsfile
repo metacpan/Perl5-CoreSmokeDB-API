@@ -83,7 +83,7 @@ chmod +x deploy/local/bin/*
                 expression {
                     echo "BRANCH_NAME is ${scm.branches[0].name}"
                     echo "buildBranch is ${params.buildBranch}"
-                    return params.builBranch == "main"
+                    return params.buildBranch == "main"
                 }
             }
             steps {
