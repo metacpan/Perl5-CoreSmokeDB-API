@@ -1,6 +1,7 @@
 # NAME
 
 Perl5::CoreSmokeDB - API server for the VueJS frontend
+[Perl5-CoreSmokeDB-Web](https://github.com/abeltje/Perl5-CoreSmokeDB-Web#name)
 
 # DESCRIPTION
 
@@ -15,8 +16,12 @@ Basic installation for try-out:
 git clone https://github.com/abeltje/Perl5-CoreSmokeDB-API.git
 cd Perl5-CoreSmokeDB-API
 carton install
-carton exec -- local/bin/plackup -S Starman bin/app.psgi -E try-out --port 5050
+carton exec -- local/bin/plackup -s Starman bin/app.psgi -E try-out --port 5050
 ```
+
+On a clean Ubuntu 22.04 install you will also need these packages before you
+start: `build-essential` `cpanminus` `carton` `sqlite3` `libpq-dev`
+`libxml2-dev` `libexpat1-dev` `jq`
 
 # THE API
 
