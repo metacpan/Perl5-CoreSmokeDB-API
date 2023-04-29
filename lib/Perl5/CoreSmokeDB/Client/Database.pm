@@ -7,7 +7,6 @@ with(
 );
 
 use version;
-use Encode qw( encode );
 use DateTime;
 use Date::Parse qw( str2time );
 
@@ -843,8 +842,6 @@ sub post_report {
 
     my @other_data = qw/harness_only harness3opts summary/;
     $report_data->{$_} = delete $data->{$_} for @other_data;
-
-    $report_data->{$_} = encode('utf8', delete $data->{$_}) for @_binary_data;
 
     my $configs = delete $data->{'configs'};
     return $self->schema->txn_do(

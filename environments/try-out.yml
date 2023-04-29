@@ -12,4 +12,5 @@ plugins:
       options:
         RaiseError: 1
         PrintError: 1
+        sqlite_string_mode: 5
     default: *try

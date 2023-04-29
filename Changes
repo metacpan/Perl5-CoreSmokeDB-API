@@ -1,12 +1,32 @@
-Changes on 2022-10-15 for repository at:
+Changes on 2023-04-29 for repository at:
   Fetch URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
   Push  URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
 
 Enjoy!
 
-1.01 2022-10-15T14:45:33+02:00 (adda164 => Abe Timmerman)
+1.01_01 2023-04-29T16:56:55+02:00 (4abdbee => Abe Timmerman)
+ - (Abe Timmerman, Sat, 29 Apr 2023 16:56:55 +0200) Autocommit for
+   distribution Perl5::CoreSmokeDB 1.01_01 (test)
+
+1.01 2022-10-15T14:45:33+02:00 (15af291 => Abe Timmerman)
  - (Abe Timmerman, Sat, 15 Oct 2022 14:45:33 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.01 (minor)
+
+ - (Abe Timmerman, Sat, 15 Oct 2022 20:35:26 +0200) Add the parameter for
+   building different branches
+
+ - (Abe Timmerman, Sat, 29 Apr 2023 16:31:07 +0200) No tabs in the
+   Jenkinsfile
+
+ - (Abe Timmerman, Sat, 29 Apr 2023 16:33:09 +0200) Add the SQLite way to
+   'pg_enable_utf8=-1'
+
+ - (Abe Timmerman, Sat, 29 Apr 2023 16:38:15 +0200) Unbreak storage of
+   "binary" data.
+ -     This so called "binary" data was actually legal UTF-8, that should
+   be
+ -     stored as such in the database. We now added options to the database
+ -     drivers to do this automagically.
 
 1.00_03 2022-10-13T16:41:24+02:00 (c97b8ac => Abe Timmerman)
  - (Abe Timmerman, Thu, 13 Oct 2022 16:41:24 +0200) Autocommit for
