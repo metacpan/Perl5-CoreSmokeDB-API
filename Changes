@@ -1,10 +1,14 @@
 Changes on 2023-05-02 for repository at:
-  Fetch URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
-  Push  URL: ssh://git@source.test-smoke.org:9999/~/Perl5-CoreSmokeDB-API
+  Fetch URL: git@github.com:abeltje/Perl5-CoreSmokeDB-API.git
+  Push  URL: git@github.com:abeltje/Perl5-CoreSmokeDB-API.git
 
 Enjoy!
 
-1.02_01 2023-05-02T15:47:11+02:00 (deb0e4c => Abe Timmerman)
+1.03 2023-05-02T15:51:40+02:00 (88f8112 => Abe Timmerman)
+ - (Abe Timmerman, Tue, 2 May 2023 15:51:40 +0200) Autocommit for
+   distribution Perl5::CoreSmokeDB 1.03 (minor)
+
+1.02_01 2023-05-02T15:47:11+02:00 (afc4077 => Abe Timmerman)
  - (Abe Timmerman, Tue, 2 May 2023 15:47:11 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.02_01 (test)
 
