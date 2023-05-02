@@ -1,14 +1,16 @@
 package Perl5::CoreSmokeDB::Client::Database;
 use Moo;
 
-with(
-    'Perl5::CoreSmokeDB::ValidationTemplates',
-    'MooX::Params::CompiledValidators'
-);
+with qw<
+    Perl5::CoreSmokeDB::ValidationTemplates
+    MooX::Params::CompiledValidators
+>;
+
+our $VERSION = '1.001';
 
 use version;
 use DateTime;
-use Date::Parse qw( str2time );
+use Date::Parse qw< str2time >;
 
 =head1 NAME
 
@@ -22,14 +24,12 @@ An instance of L<Perl5::CoreSmokeDB::Schema>.
 
 =cut
 
-use Types::Standard qw( InstanceOf );
+use Types::Standard qw< InstanceOf >;
 has schema => (
     is       => 'ro',
     isa      => InstanceOf["Perl5::CoreSmokeDB::Schema"],
     required => 1
 );
-
-my @_binary_data = qw/ log_file out_file manifest_msgs compiler_msgs nonfatal_msgs /;
 
 =head1 DESCRIPTION
 
@@ -244,15 +244,15 @@ sub get_latest_reports {
             },
         },
         {
-            columns => [qw/
+            columns => [qw<
                 id architecture hostname osname osversion
                 perl_id git_id git_describe plevel smoke_branch
                 username smoke_date summary cpu_count cpu_description
-            /],
+            >],
             order_by => [
                 { '-desc' => 'smoke_date' },
                 { '-desc' => 'plevel' },
-                qw/architecture osname osversion hostname/
+                qw< architecture osname osversion hostname >,
             ],
         }
     );
@@ -661,12 +661,12 @@ sub get_reports_by_perl_version {
             $self->get_filter_query_report(\%$raw_filter),
         },
         {
-            columns => [qw/
+            columns => [qw<
                 id architecture hostname osname osversion
                 perl_id git_id git_describe plevel smoke_branch
                 username smoke_date summary cpu_count cpu_description
-            /],
-            order_by => [qw/architecture hostname osname osversion/],
+            >],
+            order_by => [qw< architecture hostname osname osversion >],
         }
     );
     return [ $reports->all() ];
@@ -699,7 +699,7 @@ sub count_reports_by_filter {
         },
         {
             join     => 'configs',
-            columns  => [qw/id/],
+            columns  => [qw< id >],
             distinct => 1,
         }
     )->count();
@@ -736,11 +736,11 @@ sub get_reports_by_filter {
         },
         {
             join     => 'configs',
-            columns => [qw/
+            columns => [qw<
                 id architecture hostname osname osversion
                 perl_id git_id git_describe plevel smoke_branch
                 username smoke_date summary cpu_count cpu_description
-            /],
+            >],
             distinct => 1,
             order_by => { -desc => 'smoke_date' },
             page     => $page,
@@ -762,9 +762,9 @@ sub get_architecture_host_os {
     my $architecture = $self->schema->resultset('Report')->search(
         undef,
         {
-            columns  => [qw/architecture hostname osname osversion/],
-            group_by => [qw/architecture hostname osname osversion/],
-            order_by => [qw/architecture hostname osname osversion/],
+            columns  => [qw< architecture hostname osname osversion >],
+            group_by => [qw< architecture hostname osname osversion >],
+            order_by => [qw< architecture hostname osname osversion >],
         },
     );
     return [ $architecture->all() ];
@@ -782,9 +782,9 @@ sub get_compilers {
     my $compilers = $self->schema->resultset('Config')->search(
         undef,
         {
-            columns  => [qw/cc ccversion/],
-            group_by => [qw/cc ccversion/],
-            order_by => [qw/cc ccversion/],
+            columns  => [qw< cc ccversion >],
+            group_by => [qw< cc ccversion >],
+            order_by => [qw< cc ccversion >],
         }
     );
     return [ $compilers->all() ];
@@ -834,13 +834,16 @@ sub post_report {
         time_zone => 'UTC',
     );
 
-    my @to_unarray = qw/
+    my @log_data = qw< log_file out_file >;
+    $report_data->{$_} = delete $data->{$_} for @log_data;
+
+    my @to_unarray = qw<
         skipped_tests applied_patches
         compiler_msgs manifest_msgs nonfatal_msgs
-    /;
+    >;
     $report_data->{$_} = join("\n", @{delete($data->{$_}) || []}) for @to_unarray;
 
-    my @other_data = qw/harness_only harness3opts summary/;
+    my @other_data = qw< harness_only harness3opts summary >;
     $report_data->{$_} = delete $data->{$_} for @other_data;
 
     my $configs = delete $data->{'configs'};
@@ -851,7 +854,7 @@ sub post_report {
 
             for my $config (@$configs) {
                 my $results = delete $config->{'results'};
-                for my $field (qw/cc ccversion/) {
+                for my $field (qw< cc ccversion >) {
                     $config->{$field} ||= '?';
                 }
                 $config->{started} = DateTime->from_epoch(
