@@ -1,12 +1,25 @@
-Changes on 2023-05-02 for repository at:
-  Fetch URL: git@github.com:abeltje/Perl5-CoreSmokeDB-API.git
-  Push  URL: git@github.com:abeltje/Perl5-CoreSmokeDB-API.git
+1.03_00 2023-06-22T16:45:01+02:00 (2f8894f => Abe Timmerman)
+ - (Abe Timmerman, Thu, 22 Jun 2023 16:45:01 +0200) Autocommit for
+   distribution Perl5-CoreSmokeDB 1.03_00 (test)
 
-Enjoy!
-
-1.03 2023-05-02T15:51:40+02:00 (88f8112 => Abe Timmerman)
+1.03 2023-05-02T15:51:40+02:00 (2a72090 => Abe Timmerman)
  - (Abe Timmerman, Tue, 2 May 2023 15:51:40 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.03 (minor)
+ - (Abe Timmerman, Thu, 22 Jun 2023 16:24:54 +0200) Change to Log4perl for
+   logging
+ -     This gives us 'MooseX::Log::Log4perl::Easy'.
+ - (Abe Timmerman, Thu, 22 Jun 2023 16:34:23 +0200) An other go at the
+   'wide character' bug
+ -     It turns out, that in the "old" application/x-www-form-urlencoded
+ -     interface, the bytea fields are not properly encoded and need an
+   extra
+ -     round of encoding, before  they enter the database. The
+   RESTish/JSONRPC2
+ -     interface doesn't seem to have this problem, so we take care to only
+   do
+ -     this for the form-post interface.
+ - (Abe Timmerman, Thu, 22 Jun 2023 16:43:07 +0200) Add the development
+   log4perl config to the MANIFEST
 
 1.02_01 2023-05-02T15:47:11+02:00 (afc4077 => Abe Timmerman)
  - (Abe Timmerman, Tue, 2 May 2023 15:47:11 +0200) Autocommit for
@@ -15,7 +28,6 @@ Enjoy!
 1.02 2023-04-29T17:19:59+02:00 (e8cef95 => Abe Timmerman)
  - (Abe Timmerman, Sat, 29 Apr 2023 17:19:59 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.02 (minor)
-
  - (Abe Timmerman, Tue, 2 May 2023 12:15:56 +0200) BUGFIX: process the
    report-fields only once
  -     Some fields from the json were processed multiple times, this leaves
@@ -28,28 +40,21 @@ Enjoy!
 1.01_01 2023-04-29T16:56:55+02:00 (c1eeaeb => Abe Timmerman)
  - (Abe Timmerman, Sat, 29 Apr 2023 16:56:55 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.01_01 (test)
-
  - (Abe Timmerman, Sat, 29 Apr 2023 17:16:26 +0200) Merge branch 'preview'
 
 1.01 2022-10-15T14:45:33+02:00 (15af291 => Abe Timmerman)
  - (Abe Timmerman, Sat, 15 Oct 2022 14:45:33 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.01 (minor)
-
  - (Abe Timmerman, Sat, 15 Oct 2022 20:35:26 +0200) Add the parameter for
    building different branches
-
  - (Abe Timmerman, Sun, 16 Oct 2022 13:18:42 +0200) Fix typo in Jenkinsfile
  -     It prevented the deploy to production.
-
  - (Abe Timmerman, Sun, 16 Oct 2022 20:19:24 +0200) Fix the documentation
    in README.md
-
  - (Abe Timmerman, Sat, 29 Apr 2023 16:31:07 +0200) No tabs in the
    Jenkinsfile
-
  - (Abe Timmerman, Sat, 29 Apr 2023 16:33:09 +0200) Add the SQLite way to
    'pg_enable_utf8=-1'
-
  - (Abe Timmerman, Sat, 29 Apr 2023 16:38:15 +0200) Unbreak storage of
    "binary" data.
  -     This so called "binary" data was actually legal UTF-8, that should
@@ -60,34 +65,29 @@ Enjoy!
 1.00_03 2022-10-13T16:41:24+02:00 (c97b8ac => Abe Timmerman)
  - (Abe Timmerman, Thu, 13 Oct 2022 16:41:24 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.00_03 (test)
-
  - (Abe Timmerman, Fri, 14 Oct 2022 15:29:55 +0200) Add post_report to the
    api
  -     Neither the jsonrpc nor the restish interface had a configuration
    for
  -     the post_report functionality, with new tests.
-
  - (Abe Timmerman, Fri, 14 Oct 2022 18:08:43 +0200) Add examples for use.
-
  - (Abe Timmerman, Sat, 15 Oct 2022 14:42:49 +0200) Add new tests for the
    posting of reports
 
 1.00_02 2022-10-12T13:25:30+02:00 (7a78cc4 => Abe Timmerman)
  - (Abe Timmerman, Wed, 12 Oct 2022 13:25:30 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.00_02 (test)
-
  - (Abe Timmerman, Thu, 13 Oct 2022 16:36:37 +0200) Add functions for the
    old api
  -     TonyC uses 3 rest api functions:
- -     - /api/reports_from_date/:epoch?limit=100
- -     - /api/reports_from_id/:rid
- -     - /api/report_data/:rid
+ -     /api/reports_from_date/:epoch?limit=100
+ -     /api/reports_from_id/:rid
+ -     /api/report_data/:rid
  -     We need these to make the transition from the old to the new.
 
 1.00_01 2022-10-11T14:15:04+02:00 (b93b790 => Abe Timmerman)
  - (Abe Timmerman, Tue, 11 Oct 2022 14:15:04 +0200) Autocommit for
    distribution Perl5::CoreSmokeDB 1.00_01 (test)
-
  - (Abe Timmerman, Wed, 12 Oct 2022 13:22:55 +0200) New version of the
    schema (remove warnings)
 
@@ -95,11 +95,8 @@ Enjoy!
  - (Abe Timmerman, Sun, 25 Sep 2022 18:15:04 +0200) First commit
  -     This API is a port of the "old" CoreSmokeDB web-app.
  -     This service will only provide the API for the new VueJS frontend.
-
  - (Abe Timmerman, Tue, 11 Oct 2022 10:27:05 +0200) Make it a buildable
    distribution
-
  - (Abe Timmerman, Tue, 11 Oct 2022 13:42:32 +0200) Only the CoreSmokeDB
    API for now
-
  - (Abe Timmerman, Tue, 11 Oct 2022 14:02:31 +0200) We need Starman to run
