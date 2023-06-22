@@ -3,6 +3,7 @@ config.yml
 cpanfile
 cpanfile.snapshot
 dbi.trace
+environments/development.l4p
 environments/development.yml
 environments/test.yml
 environments/try-out.yml
