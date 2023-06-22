@@ -1,8 +1,11 @@
 ---
 log: debug
-logger: console
+logger: log4perl
 
-auto_reload: 1
+engines:
+  logger:
+    log4perl:
+      config_file: environments/development.l4p
 
 # cors_allow_origin: http://localhost:5173
 cors_allow_origin: "*"

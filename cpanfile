@@ -1,6 +1,8 @@
 requires 'Dancer2'                       => '0.400000';
 requires 'Dancer2::Plugin::RPC'          => '2.02';
 requires 'Dancer2::Plugin::RPC::RESTISH' => '2.01_01';
+requires 'Dancer2::Logger::Log4perl';
+requires 'MooseX::Log::Log4perl'         => '0.47';
 requires 'Date::Parse'                   => '2.30';
 requires 'DateTime::Format::Pg'          => '0.16013';
 requires 'DateTime::Format::SQLite'      => '0.11';
