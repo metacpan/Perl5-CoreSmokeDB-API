@@ -18,10 +18,12 @@ plugins:
       options:
         RaiseError: 1
         PrintError: 1
+        pg_enable_utf8: -1
     development: &dev
       schema_class: Perl5::CoreSmokeDB::Schema
       dsn: 'dbi:Pg:host=fidodbmaster;dbname=coresmokedb'
       options:
         RaiseError: 1
         PrintError: 1
+        pg_enable_utf8: -1
     default: *dev

@@ -1,7 +1,9 @@
 package Perl5::CoreSmokeDB::API::FreeRoutes;
 use Moo;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
+
+use Dancer2 appname => 'Perl5::CoreSmokeDB';
 
 =head1 NAME
 
@@ -21,15 +23,10 @@ Returns the processed Swagger document as C<application/json>
 
 =cut
 
-package Perl5::CoreSmokeDB {
-use warnings;
-use strict;
-use Dancer2;
-
-use Encode qw( encode );
-use File::Spec::Functions qw( catfile );
-use Time::HiRes qw( time );
-use YAML qw( LoadFile );
+use Encode qw< encode decode >;
+use File::Spec::Functions qw< catfile >;
+use Time::HiRes qw< time >;
+use YAML qw< LoadFile >;
 
 get('/api/openapi/web.json' => sub {
     my $open_api = LoadFile(catfile(config->{openapidir}, 'Web.yml'));
@@ -78,7 +75,18 @@ It uses the global variable C<$::web_api> to access the new API.
 
 post '/report' => sub {
     my $start = time();
-    my $data = from_json(encode('utf-8', params->{json}));
+    my $data = from_json(encode('utf-8', params->{json}), { utf8 => 1 });
+
+    # We need to extra encode() the bytea fields for this interface
+    my @bytea = qw< compiler_msgs manifest_msgs nonfatal_msgs log_file out_file >;
+    for my $fld (@bytea) {
+        if (ref($data->{$fld}) eq 'ARRAY') {
+            $_ = encode('utf-8', $_) for @{ $data->{$fld} };
+        }
+        else {
+            defined($data->{$fld}) and $data->{$fld} = encode('utf-8', $data->{$fld});
+        }
+    }
 
     my $response = do {
         no warnings 'once';
@@ -94,11 +102,17 @@ post '/report' => sub {
 };
 
 1;
-}
 
-1;
+=head1 LICENSE
 
-=head1 AUTHOR
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+=head1 COPYRIGHT
 
 E<copy> MMXXII - Abe Timmerman <abeltje@cpan.org>
 
