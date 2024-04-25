@@ -16,6 +16,9 @@ cpanfile.snapshot
 local/
 logs/
 
+# carmell
+.carmel/
+
 # Devel::Cover
 cover_db/
 
