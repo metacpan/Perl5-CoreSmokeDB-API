@@ -1,0 +1,13 @@
+---
+version: "3"
+services:
+  perl5_coresmokedb_api:
+    container_name: dckr-perl5-coresmokedb-api
+    image: perl5-coresmokedb-api:latest
+    build:
+      context: .
+    ports:
+      - 5050:5050
+    environment:
+      PGPASSFILE: /var/lib/coresmokedb-api/environments/.pgpass
+    restart: unless-stopped
