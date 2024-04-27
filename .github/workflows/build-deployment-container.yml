@@ -17,7 +17,7 @@ jobs:
       - name: Docker build
         run: docker build . -t metacpan/perl5-coresmokedb-api:latest
       - name: Run Perl tests
-        run: docker run -i metacpan/perl5-coresmokedb-api carton exec prove -lw t
+        run: docker run -i metacpan/perl5-coresmokedb-api prove -lw t
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
