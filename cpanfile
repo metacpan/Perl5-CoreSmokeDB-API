@@ -17,3 +17,4 @@ requires 'Moo'                           => '2';
 requires 'Perl5::CoreSmokeDB::Schema'    => '1.12';
 requires 'namespace::autoclean'          => '0';
 requires 'Starman'                       => '0.4015';
+requires 'Test::Fatal';
