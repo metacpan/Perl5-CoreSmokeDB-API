@@ -5,6 +5,7 @@ RUN apt update && apt upgrade -y && \
     apt install -y build-essential libpq-dev
 
 # deploy the application
+COPY t            /var/lib/coresmokedb-ap/t/
 COPY lib          /var/lib/coresmokedb-api/lib/
 COPY bin          /var/lib/coresmokedb-api/bin/
 COPY environments /var/lib/coresmokedb-api/environments/
