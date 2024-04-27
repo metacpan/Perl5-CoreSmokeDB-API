@@ -1,0 +1,25 @@
+---
+name: Build deployment container
+on:
+  push:
+    branches:
+      - main
+      - preview
+  workflow_dispatch:
+jobs:
+  docker:
+    runs-on: ubuntu-22.04
+    name: Docker Push
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker build
+        run: docker build . -t metacpan/perl5-coresmokedb-api:latest
+      - name: Run Perl tests
+        run: docker run -i metacpan/perl5-coresmokedb-api carton exec prove -lw t
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Push build to Docker hub
+        run: docker push metacpan/perl5-coresmokedb-api:latest
