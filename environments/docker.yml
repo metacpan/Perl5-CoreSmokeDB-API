@@ -14,8 +14,8 @@ plugins:
   DBIC:
     docker: &dckr
       schema_class: Perl5::CoreSmokeDB::Schema
-      dsn: 'dbi:Pg:host=fidodbmaster;dbname=coresmokedb'
-      user: abeltje
+      dsn: 'dbi:Pg:host=dbserver;dbname=coresmokedb'
+      user: coresmokedb
       options:
         RaiseError: 1
         PrintError: 1
