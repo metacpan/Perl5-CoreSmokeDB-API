@@ -3,7 +3,7 @@ version: "3"
 services:
   perl5_coresmokedb_api:
     container_name: dckr-perl5-coresmokedb-api
-    image: perl5-coresmokedb-api:latest
+    image: metacpan/perl5-coresmokedb-api:latest
     build:
       context: .
     ports:
