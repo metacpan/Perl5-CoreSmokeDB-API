@@ -16,6 +16,9 @@ cpanfile.snapshot
 local/
 logs/
 
+# carmell
+.carmel/
+
 # Devel::Cover
 cover_db/
 
@@ -34,3 +37,6 @@ nytprof.out
 
 # vim
 *.swp
+
+# App stuff that does not belong in git
+private-config/

@@ -1,0 +1,23 @@
+---
+log: debug
+logger: log4perl
+
+engines:
+  logger:
+    log4perl:
+      config_file: environments/docker.l4p
+
+# cors_allow_origin: http://localhost:5555
+cors_allow_origin: "*"
+
+plugins:
+  DBIC:
+    docker: &dckr
+      schema_class: Perl5::CoreSmokeDB::Schema
+      dsn: 'dbi:Pg:host=dbserver;dbname=coresmokedb'
+      user: coresmokedb
+      options:
+        RaiseError: 1
+        PrintError: 1
+        pg_enable_utf8: -1
+    default: *dckr

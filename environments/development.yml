@@ -22,6 +22,7 @@ plugins:
     development: &dev
       schema_class: Perl5::CoreSmokeDB::Schema
       dsn: 'dbi:Pg:host=fidodbmaster;dbname=coresmokedb'
+      user: abeltje
       options:
         RaiseError: 1
         PrintError: 1
