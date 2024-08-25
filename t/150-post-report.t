@@ -57,10 +57,10 @@ $schema->txn_do(
 
 $schema->txn_do(
     sub {
-        note("Backward compatibility: POST /report");
+        note("Backward compatibility: POST /api/old_format_reports");
         my $response = $tester->request(
             HTTP::Request->new(
-                POST => '/report',
+                POST => '/api/old_format_reports',
                 [ 'Content-type' => 'application/x-www-form-urlencoded' ],
                 join("=", map {uri_escape($_) } "json", $jsn_rpt)
             )
