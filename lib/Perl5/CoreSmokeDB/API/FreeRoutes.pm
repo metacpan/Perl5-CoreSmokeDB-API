@@ -66,14 +66,19 @@ get '/api/openapi/web' => sub {
     return $yaml;
 };
 
-=head2 POST B</report>
+=head2 POST B</api/old_format_reports>
 
 This is a backward compatible endpoint that allows old clients to keep working.
 It uses the global variable C<$::web_api> to access the new API.
 
+Fastly CDN will redirect /report to /api/old_format_reports.
+
+We need `/api` in the path so the k8 Ingest knows to sent to the correct
+container.
+
 =cut
 
-post '/report' => sub {
+post '/api/old_format_reports' => sub {
     my $start = time();
     my $data = from_json(encode('utf-8', params->{json}), { utf8 => 1 });
 
