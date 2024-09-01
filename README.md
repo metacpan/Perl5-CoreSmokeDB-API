@@ -8,7 +8,11 @@ Perl5::CoreSmokeDB - API server for the VueJS frontend
 This software is the backend for the Single Page Application frontend written
 in VueJS 3.
 
-# INSTALLING
+# DEPLOYING
+
+Details of the [live deploy setup](./LIVE_DEPLOY.md) for https://perl5.test-smoke.org/
+
+# INSTALLING LOCALLY
 
 Basic installation for try-out:
 
